@@ -1,8 +1,8 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController.js";
-import { eventsService } from "../services/EventsService.js";
+import { towerEventsService } from "../services/TowerEventsService.js";
 
-export class EventsController extends BaseController {
+export class TowerEventsController extends BaseController {
   constructor() {
     super('api/events')
 
@@ -17,9 +17,9 @@ export class EventsController extends BaseController {
 
       eventData.creatorId = req.userInfo.id
 
-      const event = await eventsService.createEvent(eventData)
+      const towerEvent = await towerEventsService.createEvent(eventData)
 
-      return res.send(event)
+      return res.send(towerEvent)
     } catch (error) {
       next(error)
     }
