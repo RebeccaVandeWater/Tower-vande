@@ -69,8 +69,16 @@
         </div>
       </div>
 
-      <div class="col-12 mt-4 text-light">
-        Attendees Section
+      <div class="col-12 mt-4">
+        <p class="text-light ps-2">
+          See who's attending
+        </p>
+        
+        <div class="m-1 p-2 dark-glass rounded text-light">
+          <div v-for="ticket in tickets" :key="ticket.id"> 
+            <img class="img-fluid avatar-pic" :src="ticket.profile.picture" :alt="ticket.profile.name" :title="ticket.profile.name">
+          </div>
+        </div>
       </div>
 
       <div class="col-12 mt-4 text-light">
@@ -85,6 +93,7 @@
 import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
+import { ticketsService } from '../services/TicketsService.js';
 import { computed, watchEffect } from 'vue';
 import { AppState } from '../AppState.js';
 
@@ -103,12 +112,24 @@ export default {
       }
     }
 
+    async function getTicketsByEventId(){
+      try {
+        const eventId = route.params.eventId
+
+        await ticketsService.getTicketsByEventId(eventId)
+      } catch (error) {
+        Pop.error(error.message)
+      }
+    }
+
     watchEffect(() => {
       getEventById(route.params.eventId)
+      getTicketsByEventId()
     })
 
     return {
       selectedEvent: computed(() => AppState.selectedEvent),
+      tickets: computed(() => AppState.tickets),
       account: computed(() => AppState.account),
 
       async removeEvent(){
@@ -141,5 +162,13 @@ export default {
 
 .description-size{
   max-width: 40vw
+}
+
+.avatar-pic{
+  width: 5vh;
+  height: 5vh;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 }
 </style>
