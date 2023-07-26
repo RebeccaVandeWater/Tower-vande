@@ -14,7 +14,7 @@ export const TowerEventSchema = new Schema({
 
 TowerEventSchema.virtual('ticketCount', {
   localField: '_id',
-  foreignField: 'towerEventId',
+  foreignField: 'eventId',
   ref: 'Ticket',
   count: true
 })

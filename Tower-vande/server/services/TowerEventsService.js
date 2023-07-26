@@ -11,6 +11,10 @@ class TowerEventsService {
   async getEventById(eventId) {
     const towerEvent = (await dbContext.TowerEvents.findById(eventId)).populate('creator ticketCount', 'name picture')
 
+    if (!towerEvent) {
+      throw new BadRequest('This event does not exist.')
+    }
+
     return towerEvent
   }
   async createEvent(eventData) {
@@ -23,6 +27,10 @@ class TowerEventsService {
 
   async editEvent(eventData, eventId, userId) {
     const originalEvent = await this.getEventById(eventId)
+
+    if (!originalEvent) {
+      throw new BadRequest('This event does not exist.')
+    }
 
     if (originalEvent.creatorId != userId) {
       throw new Forbidden(`You are not the owner of ${originalEvent.name}. You may not edit this event.`)
@@ -47,6 +55,10 @@ class TowerEventsService {
 
   async cancelEvent(eventId, userId) {
     const eventToCancel = await this.getEventById(eventId)
+
+    if (!eventToCancel) {
+      throw new BadRequest('This event does not exist')
+    }
 
     if (eventToCancel.creatorId != userId) {
       throw new Forbidden(`You are not the owner of ${eventToCancel.name}. You may not cancel this event.`)
