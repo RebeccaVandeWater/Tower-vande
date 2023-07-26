@@ -42,22 +42,26 @@
                 <p class="mb-0 mt-1" v-if="selectedEvent.capacity > 0 && selectedEvent.isCanceled != true">
                   <span class="text-primary fw-bold">{{ selectedEvent.capacity }} </span> Spots Left
                 </p>
-    
+
                 <p class="bg-danger text-dark fw-bold m-0 mt-1 text-center" v-else-if="selectedEvent.isCanceled">
                   CANCELLED
                 </p>
-    
+
                 <p v-else class="bg-danger text-dark fw-bold m-0 mt-1 text-center">
                   AT CAPACITY
                 </p>
               </div>
               
-              <div class="ms-4" v-if="selectedEvent.isCanceled != true && selectedEvent.capacity > 0">
-                <button class="btn btn-warning" type="button">
+              <div class="ms-4" v-if="selectedEvent.isCanceled != true && account.id">
+                <button v-if="!hasTicket && selectedEvent.capacity > 0" class="btn btn-warning" type="button" @click="createTicket()">
                   Attend <i class="mdi mdi-account-plus"></i>
                 </button>
+
+                <button v-else class="btn btn-warning" type="button" @click="removeTicket()">
+                  Unattend <i class="mdi mdi-account-minus"></i>
+                </button>
               </div>
-  
+
             </div>
             <div class="text-secondary text-end mt-4">
               <p>
@@ -131,6 +135,9 @@ export default {
       selectedEvent: computed(() => AppState.selectedEvent),
       tickets: computed(() => AppState.tickets),
       account: computed(() => AppState.account),
+      hasTicket: computed(() => {
+        return AppState.tickets.find(t => t.accountId == AppState.account.id)
+      }),
 
       async removeEvent(){
         try {
@@ -142,6 +149,38 @@ export default {
           const eventId = route.params.eventId
 
           await towerEventsService.removeEvent(eventId)
+        } catch (error) {
+          Pop.error(error.message)
+        }
+      },
+
+      async createTicket(){
+        try {
+          const towerEventId = route.params.eventId
+
+          const ticketData = { eventId: towerEventId }
+
+          await ticketsService.createTicket(ticketData)
+
+        } catch (error) {
+          Pop.error(error.message)
+        }
+      },
+
+      async removeTicket(){
+        try {
+
+          const removeConfirm = await Pop.confirm('Are you sure you want to unattend this event?')
+
+          if(!removeConfirm){
+            return
+          }
+
+          const ticketToRemove = AppState.tickets.find(t => t.accountId == AppState.account.id)
+
+          const ticketId = ticketToRemove.id
+
+          await ticketsService.removeTicket(ticketId)
         } catch (error) {
           Pop.error(error.message)
         }
