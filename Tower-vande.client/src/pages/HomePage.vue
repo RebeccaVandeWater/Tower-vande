@@ -1,12 +1,24 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="container-fluid">
+    <section class="row">
+      <div class="col-12 d-flex">
+        <img class="img-fluid home-banner-img flex-fill mx-4" src="https://images.unsplash.com/photo-1563215613-bcdbce1c7234?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Concert">
+      </div>
+    </section>
+
+    <section class="row">
+      <div class="col-12">
+        <p class="text-light">
+          Filter Buttons
+        </p>
+      </div>
+
+      <div class="col-12">
+        <p class="text-light">
+          Events
+        </p>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -19,23 +31,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
 
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
+.home-banner-img{
+  width: 100vh;
+  height: 20vh;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid #dc5f2c
 }
 </style>
