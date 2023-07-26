@@ -18,6 +18,12 @@
                 Manage Account
               </div>
             </router-link>
+
+            <!-- FIXME Add Router Name -->
+              <div class="list-group-item dropdown-item list-group-item-action" type="button" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                Create Event
+              </div>
+            
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout

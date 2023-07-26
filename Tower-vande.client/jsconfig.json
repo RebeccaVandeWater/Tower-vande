@@ -1,6 +1,7 @@
 {
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "registerGlobalComponents.js"
   ],
   "compilerOptions": {
     "jsx": "preserve"

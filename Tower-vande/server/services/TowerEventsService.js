@@ -3,20 +3,20 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class TowerEventsService {
   async getAllEvents() {
-    const towerEvents = await dbContext.TowerEvents.find().populate('ticketCount')
+    const towerEvents = await dbContext.TowerEvents.find().populate('creator ticketCount', 'name picture')
 
     return towerEvents
   }
 
   async getEventById(eventId) {
-    const towerEvent = (await dbContext.TowerEvents.findById(eventId)).populate('ticketCount')
+    const towerEvent = (await dbContext.TowerEvents.findById(eventId)).populate('creator ticketCount', 'name picture')
 
     return towerEvent
   }
   async createEvent(eventData) {
     const towerEvent = await dbContext.TowerEvents.create(eventData)
 
-    await towerEvent.populate('ticketCount')
+    await towerEvent.populate('creator ticketCount', 'name picture')
 
     return towerEvent
   }

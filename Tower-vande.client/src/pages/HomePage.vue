@@ -13,20 +13,39 @@
         </p>
       </div>
 
-      <div class="col-12">
-        <p class="text-light">
-          Events
-        </p>
+      <div class="col-12 col-md-3" v-for="towerEvent in towerEvents" :key="towerEvent.id">
+        <TowerEventCard :towerEventProp="towerEvent" />
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import Pop from '../utils/Pop.js';
+import { towerEventsService } from '../services/TowerEventsService.js'
+import { computed, onMounted } from 'vue';
+import { AppState } from '../AppState.js';
+import TowerEventCard from '../components/TowerEventCard.vue';
+
+
 export default {
-  setup() {
-    return {}
-  }
+    setup() {
+        async function getEvents() {
+            try {
+                await towerEventsService.getEvents();
+            }
+            catch (error) {
+                Pop.error(error.message);
+            }
+        }
+        onMounted(() => {
+            getEvents();
+        });
+        return {
+            towerEvents: computed(() => AppState.towerEvents)
+        };
+    },
+    components: { TowerEventCard }
 }
 </script>
 
