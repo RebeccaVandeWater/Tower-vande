@@ -59,14 +59,15 @@ footer {
 }
 
 body{
-  background-color: #192E3C;
+  background-color: #2a2d3a;
 }
 
 .dark-glass{
-  background: rgba(55, 69, 71, 0.74);
+  background: rgba(71, 76, 97, 0.89);
+  border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5.6px);
-  -webkit-backdrop-filter: blur(5.6px);
-  border: 1px solid rgb(69, 89, 92);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgb(68, 73, 93);
 }
 </style>

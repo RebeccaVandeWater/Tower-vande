@@ -12,7 +12,7 @@
 
       <div class="col-12">
           <section class="row text-light d-flex flex-md-row flex-column elevated-4 dark-glass rounded m-2">
-            <div class="col-lg-4 col-md-6 col-12 d-flex">
+            <div class="col-lg-4 col-md-6 col-12 d-flex align-items-center">
               <img class="img-fluid event-img rounded flex-fill" :src="selectedEvent.coverImg" :alt="selectedEvent.name">
             </div>
 
@@ -22,7 +22,7 @@
               <h1>
                 {{ selectedEvent.name }}
               </h1>
-              <p class="text-secondary d-flex justify-content-between">
+              <p class="text-light d-flex justify-content-between">
                 <span>{{ selectedEvent.type }}</span>
                 <span> Created By: {{ selectedEvent.creator.name }}</span>
               </p>
@@ -74,7 +74,7 @@
 
     <section class="row justify-content-center" v-if="selectedEvent.isCanceled != true">
       <div class="col-12 mt-4">
-        <p class="text-light ps-2">
+        <p class="text-white-50 ps-2">
           See who's attending
         </p>
         
@@ -87,12 +87,12 @@
     </section>
 
     <section class="row justify-content-center">
-      <div class="col-12 text-light mt-4">
+      <div class="col-9 text-white-50 mt-4">
         <p>
           See what people are saying
         </p>
       </div>
-      <div class="col-12 mb-4 dark-glass comment-container">
+      <div class="col-9 mb-4 dark-glass">
         <CommentsSection />
       </div>
     </section>
@@ -214,19 +214,11 @@ export default {
   object-position: center;
 }
 
-.description-size{
-  max-width: 40vw
-}
-
 .avatar-pic{
   width: 5vh;
   height: 5vh;
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-}
-
-.comment-container{
-  width: 70vh;
 }
 </style>

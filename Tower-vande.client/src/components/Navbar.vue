@@ -50,6 +50,10 @@ a:hover {
   border-bottom-right-radius: 0;
 }
 
+.navbar-collapse{
+  z-index: 1;
+}
+
 @media screen and (min-width: 768px) {
   nav {
     height: 64px;
