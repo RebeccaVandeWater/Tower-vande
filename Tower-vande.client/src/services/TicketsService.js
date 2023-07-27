@@ -32,6 +32,8 @@ class TicketsService {
 
     AppState.tickets.push(new Ticket(res.data))
 
+    AppState.myTickets.push(new Ticket(res.data))
+
     AppState.selectedEvent.capacity--
   }
 
@@ -40,8 +42,11 @@ class TicketsService {
 
     logger.log('[REMOVED TICKET]', res.data)
     const oldTicket = AppState.tickets.findIndex(t => t.id == ticketId)
+    const oldMyTicket = AppState.myTickets.findIndex(t => t.id == ticketId)
 
     AppState.tickets.splice(oldTicket, 1)
+
+    AppState.myTickets.splice(oldMyTicket, 1)
 
     AppState.selectedEvent.capacity++
   }

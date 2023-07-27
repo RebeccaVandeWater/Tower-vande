@@ -38,7 +38,14 @@ class TicketsService {
 
     const ticket = await dbContext.Tickets.create(ticketData)
 
-    await ticket.populate('event profile', 'name picture')
+    await ticket.populate('profile', 'name picture')
+
+    await ticket.populate({
+      path: 'event',
+      populate: {
+        path: 'creator ticketCount'
+      }
+    })
 
     return ticket
   }

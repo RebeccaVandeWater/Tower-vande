@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid">
-    <section class="row" v-if="selectedEvent">
+  <div class="container-fluid" v-if="selectedEvent">
+    <section class="row">
       <div class="col-12 text-light d-flex justify-content-between my-4" v-if="selectedEvent.creatorId == account.id && selectedEvent.isCanceled != true">
         <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#editEventModal">
           Edit Event
@@ -10,19 +10,21 @@
         </button>
       </div>
 
-      <div class="col-12 text-light">
-        <div class="d-flex flex-md-row flex-column elevated-4 dark-glass rounded">
-          <div class="d-flex">
-            <img class="img-fluid event-img rounded flex-fill" :src="selectedEvent.coverImg" :alt="selectedEvent.name">
-          </div>
+      <div class="col-12">
+          <section class="row text-light d-flex flex-md-row flex-column elevated-4 dark-glass rounded m-2">
+            <div class="col-lg-4 col-md-6 col-12 d-flex">
+              <img class="img-fluid event-img rounded flex-fill" :src="selectedEvent.coverImg" :alt="selectedEvent.name">
+            </div>
 
-          <div class="ms-4">
+            <div class="col-lg-8 col-md-6 col-12">
+
             <div class="mb-md-2 m-2 align-items-center">
               <h1>
                 {{ selectedEvent.name }}
               </h1>
-              <p class="text-secondary">
-                {{ selectedEvent.type }}
+              <p class="text-secondary d-flex justify-content-between">
+                <span>{{ selectedEvent.type }}</span>
+                <span> Created By: {{ selectedEvent.creator.name }}</span>
               </p>
               <p> {{ selectedEvent.startDate }} </p>
             </div>
@@ -51,11 +53,11 @@
                   AT CAPACITY
                 </p>
 
-                <div class="ms-2 mt-3" v-if="selectedEvent.isCanceled != true && account.id">
+                <div class="ms-2 my-3" v-if="selectedEvent.isCanceled != true && account.id">
                   <button v-if="!hasTicket && selectedEvent.capacity > 0" class="btn btn-warning" type="button" @click="createTicket()">
                     Attend <i class="mdi mdi-account-plus"></i>
                   </button>
-  
+
                   <button v-else class="btn btn-warning" type="button" @click="removeTicket()">
                     Unattend <i class="mdi mdi-account-minus"></i>
                   </button>
@@ -64,18 +66,13 @@
               
 
             </div>
-            <div class="text-secondary text-end m-3">
-              <p>
-                Created By: {{ selectedEvent.creator.name }}
-              </p>
-            </div>
           </div>
+          </section>
 
         </div>
-      </div>
     </section>
 
-    <section class="row">
+    <section class="row justify-content-center" v-if="selectedEvent.isCanceled != true">
       <div class="col-12 mt-4">
         <p class="text-light ps-2">
           See who's attending
@@ -97,6 +94,16 @@
       </div>
       <div class="col-12 mb-4 dark-glass comment-container">
         <CommentsSection />
+      </div>
+    </section>
+  </div>
+
+  <div class="container-fluid" v-else>
+    <section class="row">
+      <div class="col-12">
+        <h2 class="text-light m-4">
+          Loading... <i class="mdi mdi-loading mdi-spin"></i>
+        </h2>
       </div>
     </section>
   </div>

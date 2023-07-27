@@ -76,14 +76,11 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { AppState } from '../AppState';
 
 export default {
     setup() {
-
-        onMounted(() => {
-        });
 
         return {
             account: computed(() => AppState.account),

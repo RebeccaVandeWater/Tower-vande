@@ -14,6 +14,7 @@
       <div>
         <label for="coverImg"></label>
         <input v-model="editable.coverImg" type="url" name="coverImg" id="coverImg" placeholder="Cover Image" minlength="3" maxlength="500" class="form-control">
+        <p class="text-danger" v-if="editable.coverImg == null">Please fill in cover-image</p>
       </div>
 
       <div>

@@ -2,7 +2,7 @@
 
 <div v-if="selectedEvent">
   <div class="text-light">
-    <div class="m-3" v-if="selectedEvent.isCanceled != true && selectedEvent.capacity > 0 && account.id">
+    <div class="m-3">
       <form @submit.prevent="createComment()">
       <label for="body"></label>
       <textarea v-model="editable.body" name="body" id="body" cols="30" rows="10" class="form-control" placeholder="Join the conversation" required minlength="3" maxlength="200"></textarea>
