@@ -72,7 +72,9 @@
 
         </div>
       </div>
+    </section>
 
+    <section class="row">
       <div class="col-12 mt-4">
         <p class="text-light ps-2">
           See who's attending
@@ -84,9 +86,16 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="col-12 mt-4 text-light">
-        Comments Section
+    <section class="row justify-content-center">
+      <div class="col-12 text-light mt-4">
+        <p>
+          See what people are saying
+        </p>
+      </div>
+      <div class="col-12 mb-4 dark-glass comment-container">
+        <CommentsSection />
       </div>
     </section>
   </div>
@@ -98,95 +107,93 @@ import { useRoute } from 'vue-router';
 import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js';
 import { ticketsService } from '../services/TicketsService.js';
+import { commentsService } from '../services/CommentsService.js';
 import { computed, watchEffect } from 'vue';
 import { AppState } from '../AppState.js';
+import CommentsSection from '../components/CommentsSection.vue';
 
 export default {
-  setup(){
-
-    const route = useRoute()
-
-    async function getEventById(){
-      try {
-        const eventId = route.params.eventId
-
-        await towerEventsService.getEventById(eventId)
-      } catch (error) {
-        Pop.error(error.message)
-      }
-    }
-
-    async function getTicketsByEventId(){
-      try {
-        const eventId = route.params.eventId
-
-        await ticketsService.getTicketsByEventId(eventId)
-      } catch (error) {
-        Pop.error(error.message)
-      }
-    }
-
-    watchEffect(() => {
-      getEventById(route.params.eventId)
-      getTicketsByEventId()
-    })
-
-    return {
-      selectedEvent: computed(() => AppState.selectedEvent),
-      tickets: computed(() => AppState.tickets),
-      account: computed(() => AppState.account),
-      hasTicket: computed(() => {
-        return AppState.tickets.find(t => t.accountId == AppState.account.id)
-      }),
-
-      async removeEvent(){
-        try {
-          const removeConfirm = await Pop.confirm('Are you sure you want to cancel this event?')
-
-          if(!removeConfirm){
-            return
-          }
-          const eventId = route.params.eventId
-
-          await towerEventsService.removeEvent(eventId)
-        } catch (error) {
-          Pop.error(error.message)
+    setup() {
+        const route = useRoute();
+        async function getEventById() {
+            try {
+                const eventId = route.params.eventId;
+                await towerEventsService.getEventById(eventId);
+            }
+            catch (error) {
+                Pop.error(error.message);
+            }
         }
-      },
-
-      async createTicket(){
-        try {
-          const towerEventId = route.params.eventId
-
-          const ticketData = { eventId: towerEventId }
-
-          await ticketsService.createTicket(ticketData)
-
-        } catch (error) {
-          Pop.error(error.message)
+        async function getTicketsByEventId() {
+            try {
+                const eventId = route.params.eventId;
+                await ticketsService.getTicketsByEventId(eventId);
+            }
+            catch (error) {
+                Pop.error(error.message);
+            }
         }
-      },
-
-      async removeTicket(){
-        try {
-
-          const removeConfirm = await Pop.confirm('Are you sure you want to unattend this event?')
-
-          if(!removeConfirm){
-            return
-          }
-
-          const ticketToRemove = AppState.tickets.find(t => t.accountId == AppState.account.id)
-
-          const ticketId = ticketToRemove.id
-
-          await ticketsService.removeTicket(ticketId)
-        } catch (error) {
-          Pop.error(error.message)
+        async function getCommentsByEventId() {
+            try {
+                const eventId = route.params.eventId;
+                await commentsService.getCommentsByEventId(eventId);
+            }
+            catch (error) {
+                Pop.error(error.message);
+            }
         }
-      }
-    }
-  }
+        watchEffect(() => {
+            getEventById(route.params.eventId);
+            getTicketsByEventId();
+            getCommentsByEventId();
+        });
+        return {
+            selectedEvent: computed(() => AppState.selectedEvent),
+            tickets: computed(() => AppState.tickets),
+            account: computed(() => AppState.account),
+            hasTicket: computed(() => {
+                return AppState.tickets.find(t => t.accountId == AppState.account.id);
+            }),
+            async removeEvent() {
+                try {
+                    const removeConfirm = await Pop.confirm('Are you sure you want to cancel this event?');
+                    if (!removeConfirm) {
+                        return;
+                    }
+                    const eventId = route.params.eventId;
+                    await towerEventsService.removeEvent(eventId);
+                }
+                catch (error) {
+                    Pop.error(error.message);
+                }
+            },
+            async createTicket() {
+                try {
+                    const towerEventId = route.params.eventId;
+                    const ticketData = { eventId: towerEventId };
+                    await ticketsService.createTicket(ticketData);
+                }
+                catch (error) {
+                    Pop.error(error.message);
+                }
+            },
+            async removeTicket() {
+                try {
+                    const removeConfirm = await Pop.confirm('Are you sure you want to unattend this event?');
+                    if (!removeConfirm) {
+                        return;
+                    }
+                    const ticketToRemove = AppState.tickets.find(t => t.accountId == AppState.account.id);
+                    const ticketId = ticketToRemove.id;
+                    await ticketsService.removeTicket(ticketId);
+                }
+                catch (error) {
+                    Pop.error(error.message);
+                }
+            }
+        };
+    },
+    components: { CommentsSection }
 }
 </script>
 
@@ -209,5 +216,9 @@ export default {
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
+}
+
+.comment-container{
+  width: 70vh;
 }
 </style>
