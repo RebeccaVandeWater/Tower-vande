@@ -11,6 +11,12 @@ class TowerEventsService {
     AppState.towerEvents = res.data.map(pojo => new TowerEvent(pojo))
   }
 
+  filterMyEvents() {
+    const myEvents = AppState.towerEvents.filter(e => e.creatorId == AppState.account.id)
+
+    AppState.myEvents = myEvents
+  }
+
   async getEventById(eventId) {
     const res = await api.get(`api/events/${eventId}`)
 
@@ -25,8 +31,6 @@ class TowerEventsService {
     logger.log('[CREATED EVENT]', res.data)
 
     const towerEvent = new TowerEvent(res.data)
-
-    AppState.myEvents.push(towerEvent)
 
     return towerEvent
   }

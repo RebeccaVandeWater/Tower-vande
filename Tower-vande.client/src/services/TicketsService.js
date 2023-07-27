@@ -39,9 +39,9 @@ class TicketsService {
     const res = await api.delete(`api/tickets/${ticketId}`)
 
     logger.log('[REMOVED TICKET]', res.data)
-    const oldTicket = AppState.tickets.findIndex(t => t.id != ticketId)
+    const oldTicket = AppState.tickets.findIndex(t => t.id == ticketId)
 
-    AppState.splice(oldTicket, 1)
+    AppState.tickets.splice(oldTicket, 1)
 
     AppState.selectedEvent.capacity++
   }

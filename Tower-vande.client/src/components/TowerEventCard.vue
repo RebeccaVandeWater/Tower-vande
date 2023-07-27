@@ -31,6 +31,11 @@
         <p v-else class="bg-danger text-dark fw-bold m-0 mt-1 text-center">
           AT CAPACITY
         </p>
+
+        <!-- FIXME Add "Attending" on condition -->
+        <!-- <p v-if="route.path == '/account' && hasTicket" class="bg-warning text-dark fw-bold m-0 mt-1 text-center">
+          Attending
+        </p> -->
       </div>
     </div>
   </div>
@@ -42,6 +47,7 @@
 import { TowerEvent } from '../models/TowerEvent.js';
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
+import { useRoute } from 'vue-router';
 
 export default {
   props: {
@@ -49,8 +55,14 @@ export default {
   },
 
   setup(){
+    const route = useRoute()
+
     return {
-      towerEvents: computed(() => AppState.towerEvents)
+      route,
+      towerEvents: computed(() => AppState.towerEvents),
+      // hasTicket: computed(() => {
+      //     return AppState.tickets.find(t => t.accountId == AppState.account.id);
+      // }),
     }
   }
 }
