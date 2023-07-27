@@ -11,13 +11,13 @@
       </div>
 
       <div class="col-12 text-light">
-        <div class="d-flex elevated-4 dark-glass rounded">
-          <div>
-            <img class="img-fluid event-img rounded" :src="selectedEvent.coverImg" :alt="selectedEvent.name">
+        <div class="d-flex flex-md-row flex-column elevated-4 dark-glass rounded">
+          <div class="d-flex">
+            <img class="img-fluid event-img rounded flex-fill" :src="selectedEvent.coverImg" :alt="selectedEvent.name">
           </div>
 
           <div class="ms-4">
-            <div class="mb-2 align-items-center">
+            <div class="mb-md-2 m-2 align-items-center">
               <h1>
                 {{ selectedEvent.name }}
               </h1>
@@ -27,19 +27,19 @@
               <p> {{ selectedEvent.startDate }} </p>
             </div>
 
-            <div>
+            <div class="m-2">
               {{ selectedEvent.location }}
             </div>
 
-            <div class="mt-4">
-              <p class="description-size">
+            <div class="mt-md-4 m-2">
+              <p class="">
                 {{ selectedEvent.description }}
               </p>
             </div>
 
-            <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column flex-md-row justify-content-between">
               <div>
-                <p class="mb-0 mt-1" v-if="selectedEvent.capacity > 0 && selectedEvent.isCanceled != true">
+                <p class="m-2" v-if="selectedEvent.capacity > 0 && selectedEvent.isCanceled != true">
                   <span class="text-primary fw-bold">{{ selectedEvent.capacity }} </span> Spots Left
                 </p>
 
@@ -50,20 +50,21 @@
                 <p v-else class="bg-danger text-dark fw-bold m-0 mt-1 text-center">
                   AT CAPACITY
                 </p>
+
+                <div class="ms-2 mt-3" v-if="selectedEvent.isCanceled != true && account.id">
+                  <button v-if="!hasTicket && selectedEvent.capacity > 0" class="btn btn-warning" type="button" @click="createTicket()">
+                    Attend <i class="mdi mdi-account-plus"></i>
+                  </button>
+  
+                  <button v-else class="btn btn-warning" type="button" @click="removeTicket()">
+                    Unattend <i class="mdi mdi-account-minus"></i>
+                  </button>
+                </div>
               </div>
               
-              <div class="ms-4" v-if="selectedEvent.isCanceled != true && account.id">
-                <button v-if="!hasTicket && selectedEvent.capacity > 0" class="btn btn-warning" type="button" @click="createTicket()">
-                  Attend <i class="mdi mdi-account-plus"></i>
-                </button>
-
-                <button v-else class="btn btn-warning" type="button" @click="removeTicket()">
-                  Unattend <i class="mdi mdi-account-minus"></i>
-                </button>
-              </div>
 
             </div>
-            <div class="text-secondary text-end mt-4">
+            <div class="text-secondary text-end m-3">
               <p>
                 Created By: {{ selectedEvent.creator.name }}
               </p>
@@ -80,9 +81,9 @@
           See who's attending
         </p>
         
-        <div class="m-1 p-2 dark-glass rounded text-light">
+        <div class="m-1 p-2 dark-glass rounded text-light d-flex">
           <div v-for="ticket in tickets" :key="ticket.id"> 
-            <img class="img-fluid avatar-pic" :src="ticket.profile.picture" :alt="ticket.profile.name" :title="ticket.profile.name">
+            <img class="img-fluid avatar-pic me-2" :src="ticket.profile.picture" :alt="ticket.profile.name" :title="ticket.profile.name">
           </div>
         </div>
       </div>
@@ -200,8 +201,8 @@ export default {
 
 <style lang="scss" scoped>
 .event-img{
-  width: 40vh;
-  height: 40vh;
+  width: 50vh;
+  height: 50vh;
   object-fit: cover;
   object-position: center;
 }

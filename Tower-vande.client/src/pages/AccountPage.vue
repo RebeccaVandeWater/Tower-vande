@@ -1,6 +1,6 @@
 <template>
 
-<div class="container-fluid">
+<div class="container-fluid" v-if="account.id">
   <section class="row text-light">
     <div class="col-12">
       <div class="about text-center">
@@ -36,11 +36,11 @@
               </p>
 
               <span>
-                {{ new Date(ticket.event.startDate).toLocaleString() }}
+                {{ ticket.event.startDate }}
               </span>
 
-              <p class="text-end mb-0 mt-1" v-if="ticket.event.capacity - ticket.event.ticketCount > 0 && ticket.event.isCanceled != true">
-                <span class="text-primary fw-bold"> {{ ticket.event.capacity - ticket.event.ticketCount }} </span> Spots Left
+              <p class="text-end mb-0 mt-1" v-if="ticket.event.capacity > 0 && ticket.event.isCanceled != true">
+                <span class="text-primary fw-bold"> {{ ticket.event.capacity }} </span> Spots Left
               </p>
 
               <p class="bg-danger text-dark fw-bold m-0 mt-1 text-center" v-else-if="ticket.event.isCanceled">
@@ -61,38 +61,28 @@
       </router-link>
     </div>
   </section>
-
-    <div class="col-12">
-      <div>
-        <!-- <h1 class="text-light">
-          My Upcoming Events
-        </h1> -->
-      </div>
-    </div>
 </div>
 
-  
+<div class="container-fluid" v-else>
+  <section class="row">
+    <div class="col-12">
+      <h2 class="text-light m-4">
+        Loading... <i class="mdi mdi-loading mdi-spin"></i>
+      </h2>
+    </div>
+  </section>
+</div>
+
 </template>
 
 <script>
 import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState';
-// import { towerEventsService } from '../services/TowerEventsService.js';
-import { ticketsService } from '../services/TicketsService.js';
 
 export default {
     setup() {
-        // function filterMyEvents() {
-        //     towerEventsService.filterMyEvents();
-        // }
-
-        async function getMyTickets(){
-          await ticketsService.getMyTickets()
-        }
 
         onMounted(() => {
-            // filterMyEvents();
-            getMyTickets()
         });
 
         return {

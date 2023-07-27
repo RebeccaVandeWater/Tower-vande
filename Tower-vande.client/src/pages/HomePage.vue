@@ -7,27 +7,38 @@
     </section>
 
     <section class="row m-4">
-      <div class="col-12">
-        <div class="dark-glass d-flex justify-content-around rounded py-2">
-          <button class="btn btn-primary" type="button" @click="filterEvent = ''">
-            All
-          </button>
-          <button class="btn btn-primary" type="button" @click="filterEvent = 'concert'">
-            Concert
-          </button>
-          <button class="btn btn-primary" type="button" @click="filterEvent = 'convention'">
-            Convention
-          </button>
-          <button class="btn btn-primary" type="button" @click="filterEvent = 'sport'">
-            Sport
-          </button>
-          <button class="btn btn-primary" type="button" @click="filterEvent = 'digital'">
-            Digital
-          </button>
-        </div>
+      <div class="col-12 d-none d-md-block">
+        <section class="row dark-glass d-flex rounded justify-content-center text-center py-2">
+
+          <div class="col-md-2 col-6">
+            <button class="btn btn-primary m-2" type="button" @click="filterEvent = ''">
+              All
+            </button>
+          </div>
+          <div class="col-md-2 col-6">
+            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'concert'">
+              Concert
+            </button>
+          </div>
+          <div class="col-md-2 col-6">
+            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'sport'">
+              Sport
+            </button>
+          </div>
+          <div class="col-md-2 col-6">
+            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'digital'">
+              Digital
+            </button>
+          </div>
+          <div class="col-md-2 col-6">
+            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'convention'">
+              Convention
+            </button>
+          </div>
+        </section>
       </div>
 
-      <div class="col-12 col-md-3" v-for="towerEvent in towerEvents" :key="towerEvent.id">
+      <div class="col-12 col-md-4" v-for="towerEvent in towerEvents" :key="towerEvent.id">
         <TowerEventCard :towerEventProp="towerEvent" />
       </div>
     </section>
