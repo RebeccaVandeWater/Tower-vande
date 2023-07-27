@@ -6,11 +6,25 @@
       </div>
     </section>
 
-    <section class="row">
+    <section class="row m-4">
       <div class="col-12">
-        <p class="text-light">
-          Filter Buttons
-        </p>
+        <div class="dark-glass d-flex justify-content-around rounded py-2">
+          <button class="btn btn-primary" type="button" @click="filterEvent = ''">
+            All
+          </button>
+          <button class="btn btn-primary" type="button" @click="filterEvent = 'concert'">
+            Concert
+          </button>
+          <button class="btn btn-primary" type="button" @click="filterEvent = 'convention'">
+            Convention
+          </button>
+          <button class="btn btn-primary" type="button" @click="filterEvent = 'sport'">
+            Sport
+          </button>
+          <button class="btn btn-primary" type="button" @click="filterEvent = 'digital'">
+            Digital
+          </button>
+        </div>
       </div>
 
       <div class="col-12 col-md-3" v-for="towerEvent in towerEvents" :key="towerEvent.id">
@@ -23,13 +37,15 @@
 <script>
 import Pop from '../utils/Pop.js';
 import { towerEventsService } from '../services/TowerEventsService.js'
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import TowerEventCard from '../components/TowerEventCard.vue';
 
 
 export default {
     setup() {
+        const filterEvent = ref('')
+
         async function getEvents() {
             try {
                 await towerEventsService.getEvents();
@@ -42,7 +58,15 @@ export default {
             getEvents();
         });
         return {
-            towerEvents: computed(() => AppState.towerEvents)
+          filterEvent,
+          
+          towerEvents: computed(() => {
+            if(filterEvent.value == ""){
+              return AppState.towerEvents
+            } else{
+              return AppState.towerEvents.filter(e => e.type == filterEvent.value)
+            }
+            }),
         };
     },
     components: { TowerEventCard }

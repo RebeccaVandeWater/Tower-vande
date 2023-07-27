@@ -9,6 +9,9 @@ export const AppState = reactive({
   /** @type {import('./models/TowerEvent.js').TowerEvent[]} */
   towerEvents: [],
 
+  /** @type {import('./models/TowerEvent.js').TowerEvent[]} */
+  myEvents: [],
+
   /** @type {import('./models/TowerEvent.js').TowerEvent | null} */
   selectedEvent: null,
 
@@ -20,7 +23,4 @@ export const AppState = reactive({
 
   /** @type {import('./models/Comment.js').Comment[]} */
   comments: [],
-
-  /** @type {import('./models/Comment.js').Comment[]} */
-  myComments: []
 })

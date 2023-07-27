@@ -26,6 +26,8 @@ class TowerEventsService {
 
     const towerEvent = new TowerEvent(res.data)
 
+    AppState.myEvents.push(towerEvent)
+
     return towerEvent
   }
 
