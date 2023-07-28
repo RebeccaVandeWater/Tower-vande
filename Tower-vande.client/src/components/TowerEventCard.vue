@@ -24,11 +24,11 @@
           <span class="text-primary fw-bold">{{ towerEventProp.capacity }} </span> Spots Left
         </p>
 
-        <p class="bg-danger text-dark fw-bold m-0 mt-1 text-center" v-else-if="towerEventProp.isCanceled">
+        <p class="bright-pink text-dark fw-bold m-0 mt-1 text-center" v-else-if="towerEventProp.isCanceled">
           CANCELLED
         </p>
 
-        <p v-else class="bg-danger text-dark fw-bold m-0 mt-1 text-center">
+        <p v-else class="bright-pink text-dark fw-bold m-0 mt-1 text-center">
           AT CAPACITY
         </p>
 

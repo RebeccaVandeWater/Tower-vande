@@ -26,11 +26,11 @@
                 <span>{{ selectedEvent.type }}</span>
                 <span> Created By: {{ selectedEvent.creator.name }}</span>
               </p>
-              <p> {{ selectedEvent.startDate }} </p>
+              <p> When: {{ selectedEvent.startDate }} </p>
             </div>
 
             <div class="m-2">
-              {{ selectedEvent.location }}
+              Where: {{ selectedEvent.location }}
             </div>
 
             <div class="mt-md-4 m-2">
@@ -45,16 +45,16 @@
                   <span class="text-primary fw-bold">{{ selectedEvent.capacity }} </span> Spots Left
                 </p>
 
-                <p class="bg-danger text-dark fw-bold m-0 mt-1 text-center" v-else-if="selectedEvent.isCanceled">
+                <p class="bright-pink text-dark fw-bold mb-2 text-center" v-else-if="selectedEvent.isCanceled">
                   CANCELLED
                 </p>
 
-                <p v-else class="bg-danger text-dark fw-bold m-0 mt-1 text-center">
+                <p v-else class="bright-pink text-dark fw-bold mb-2 text-center">
                   AT CAPACITY
                 </p>
 
                 <div class="ms-2 my-3" v-if="selectedEvent.isCanceled != true && account.id">
-                  <button v-if="!hasTicket && selectedEvent.capacity > 0" class="btn btn-warning" type="button" @click="createTicket()">
+                  <button v-if="!hasTicket && selectedEvent.capacity > 0" class="btn soft-yellow" type="button" @click="createTicket()">
                     Attend <i class="mdi mdi-account-plus"></i>
                   </button>
 
@@ -74,20 +74,22 @@
 
     <section class="row justify-content-center" v-if="selectedEvent.isCanceled != true">
       <div class="col-12 mt-4">
-        <p class="text-white-50 ps-2">
+        <p class="soft-green ps-2">
           See who's attending
         </p>
         
         <div class="m-1 p-2 dark-glass rounded text-light d-flex">
-          <div v-for="ticket in tickets" :key="ticket.id"> 
-            <img class="img-fluid avatar-pic me-2" :src="ticket.profile.picture" :alt="ticket.profile.name" :title="ticket.profile.name">
+          <div>
+            <div v-for="ticket in tickets" :key="ticket.id">
+              <img class="img-fluid avatar-pic me-2" :src="ticket.profile.picture" :alt="ticket.profile.name" :title="ticket.profile.name">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="row justify-content-center">
-      <div class="col-9 text-white-50 mt-4">
+      <div class="col-9 soft-green mt-4">
         <p>
           See what people are saying
         </p>
@@ -221,4 +223,17 @@ export default {
   object-fit: cover;
   object-position: center;
 }
+
+.avatar-box{
+  min-height: 5vh;
+}
+
+.soft-yellow{
+  background-color: #ffd464;
+}
+
+.soft-green{
+  color: #79e7ab;
+}
+
 </style>

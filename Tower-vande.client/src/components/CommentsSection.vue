@@ -9,7 +9,7 @@
           <textarea v-model="editable.body" name="body" id="body" cols="30" rows="10" class="form-control" placeholder="Join the conversation" required minlength="3" maxlength="200"></textarea>
 
           <div class="text-end my-2">
-            <button class="btn btn-success">
+            <button class="btn soft-green text-dark">
               Post Comment
             </button>
           </div>
@@ -27,7 +27,7 @@
         <img class="img-fluid comment-avatar-img elevation-5" :src="comment.creator.picture" :alt="comment.creator.name">
       </div>
 
-      <div class="bg-light text-dark p-3 d-flex flex-fill mb-3 ms-2 flex-column elevation-5">
+      <div class="bg-light text-dark p-2 d-flex flex-fill mb-3 ms-2 flex-column elevation-5">
         <div>
           <div class="d-flex justify-content-between">
             <span class="fw-bold"> {{ comment.creator.name }} </span>
@@ -120,5 +120,9 @@ export default {
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
+}
+
+.soft-green{
+  background-color: #79e7ab;
 }
 </style>

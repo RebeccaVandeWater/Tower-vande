@@ -6,33 +6,33 @@
       </div>
     </section>
 
-    <section class="row m-4">
+    <section class="row m-4 justify-content-center">
       <div class="col-12 d-none d-md-block">
-        <section class="row dark-glass d-flex rounded justify-content-center text-center py-2">
+        <section class="row dark-glass d-flex rounded justify-content-around text-center py-2">
 
-          <div class="col-md-2 col-6">
-            <button class="btn btn-primary m-2" type="button" @click="filterEvent = ''">
+          <div class="col-md-2 col-5">
+            <button class="btn soft-green-button m-2" type="button" @click="filterEvent = ''">
               All
             </button>
           </div>
-          <div class="col-md-2 col-6">
-            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'concert'">
+          <div class="col-md-2 col-5">
+            <button class="btn soft-green-button m-2" type="button" @click="filterEvent = 'concert'">
               Concert
             </button>
           </div>
-          <div class="col-md-2 col-6">
-            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'sport'">
+          <div class="col-md-2 col-5">
+            <button class="btn soft-green-button m-2" type="button" @click="filterEvent = 'sport'">
               Sport
             </button>
           </div>
-          <div class="col-md-2 col-6">
-            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'digital'">
-              Digital
+          <div class="col-md-2 col-5">
+            <button class="btn soft-green-button m-2" type="button" @click="filterEvent = 'convention'">
+              Convention
             </button>
           </div>
-          <div class="col-md-2 col-6">
-            <button class="btn btn-primary m-2" type="button" @click="filterEvent = 'convention'">
-              Convention
+          <div class="col-md-2 col-5">
+            <button class="btn soft-green-button m-2" type="button" @click="filterEvent = 'digital'">
+              Digital
             </button>
           </div>
         </section>
@@ -93,4 +93,15 @@ export default {
   object-position: center;
   border: 1px solid #dc5f2c
 }
+
+.soft-green-button{
+  border: 1px solid #79e7ab;
+  color: #79e7ab;
+}
+
+.soft-green-button:hover{
+  background-color: #79e7ab;
+  color: black;
+}
+
 </style>

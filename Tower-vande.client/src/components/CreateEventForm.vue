@@ -4,6 +4,7 @@
       <div>
         <label for="name"></label>
         <input v-model="editable.name" type="text" name="name" id="name" class="form-control" minlength="3" maxlength="100" placeholder="Event Name" required>
+        <p class="text-danger-emphasis ps-1" v-if="editable.name == null">Please provide the event's name</p>
       </div>
 
       <div>
@@ -14,7 +15,6 @@
       <div>
         <label for="coverImg"></label>
         <input v-model="editable.coverImg" type="url" name="coverImg" id="coverImg" placeholder="Cover Image" minlength="3" maxlength="500" class="form-control">
-        <p class="text-danger" v-if="editable.coverImg == null">Please fill in cover-image</p>
       </div>
 
       <div>
@@ -25,11 +25,13 @@
       <div>
         <label for="capacity"></label>
         <input v-model="editable.capacity" type="number" max="500000" min="1" required class="form-control" placeholder="Event Capacity">
+        <p class="text-danger-emphasis ps-1" v-if="editable.capacity == null">Please provide the event's capacity</p>
       </div>
 
       <div class="mt-3">
         <label for="startDate" class="ps-2">Event Date</label>
         <input v-model="editable.startDate" type="date" name="startDate" id="startDate" class="form-control" required>
+        <p class="text-danger-emphasis ps-1" v-if="editable.type == null">Please select a date</p>
       </div>
 
       <div class="mt-3">
@@ -40,6 +42,7 @@
             {{ type }}
           </option>
         </select>
+        <p class="text-danger-emphasis ps-1" v-if="editable.type == null">Please select a type</p>
       </div>
 
       <div class="mt-3 text-end">

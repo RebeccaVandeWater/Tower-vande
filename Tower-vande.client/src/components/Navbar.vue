@@ -3,7 +3,7 @@
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <h2>
-          T<i class="mdi mdi-radio-tower"></i>wer
+          T<i class="mdi mdi-radio-tower soft-yellow"></i>wer
         </h2>
       </div>
     </router-link>
@@ -52,6 +52,10 @@ a:hover {
 
 .navbar-collapse{
   z-index: 1;
+}
+
+.soft-yellow{
+  color: #ffd464;
 }
 
 @media screen and (min-width: 768px) {
