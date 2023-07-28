@@ -34,7 +34,7 @@
             <span> {{ comment.isAttending }} </span>
             <div>
               <span class="pe-3 text-body-secondary"> {{ comment.createdAt }} </span>
-              <button class="btn btn-danger" type="button" @click="removeComment()" v-if="comment.creatorId == account.id">
+              <button class="btn btn-danger" type="button" @click="removeComment(comment.id)" v-if="comment.creatorId == account.id">
                 <i class="mdi mdi-delete"></i>
               </button>
             </div>
@@ -90,17 +90,13 @@ export default {
 
       },
 
-      async removeComment(){
+      async removeComment(commentId){
         try {
           const removeComment = await Pop.confirm('Are you sure you want to delete this comment?')
 
           if(!removeComment){
             return
           }
-
-          const commentToRemove = AppState.comments.find(c => c.creatorId == AppState.account.id)
-
-          const commentId = commentToRemove.id
 
           await commentsService.removeComment(commentId)
         } catch (error) {

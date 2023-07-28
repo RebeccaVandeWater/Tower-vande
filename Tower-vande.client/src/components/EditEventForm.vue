@@ -57,6 +57,7 @@ import { towerEventsService } from '../services/TowerEventsService.js';
 import { Modal } from 'bootstrap';
 import { AppState } from '../AppState.js';
 import { useRoute } from 'vue-router';
+import Pop from '../utils/Pop.js';
 
 export default {
   setup(){
@@ -76,15 +77,19 @@ export default {
       types: ['concert', 'convention', 'sport', 'digital'],
 
       async editEvent(){
-        const eventData = editable.value
-
-        const eventId = route.params.eventId
-
-        await towerEventsService.editEvent(eventData, eventId)
-
-        editable.value = {}
-
-        Modal.getOrCreateInstance('#editEventModal').hide()
+        try{
+          const eventData = editable.value
+  
+          const eventId = route.params.eventId
+  
+          await towerEventsService.editEvent(eventData, eventId)
+  
+          editable.value = {}
+  
+          Modal.getOrCreateInstance('#editEventModal').hide()
+        } catch(error){
+          Pop.error(error.message)
+        }
       }
     }
   }
